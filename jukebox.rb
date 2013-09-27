@@ -62,34 +62,41 @@ while exit == false
   print "♫  "
   input = gets.chomp.downcase
 
-  if input == "help"
-    puts "please enter one of the following commands:"
+  case input
+
+  when "help"
+    puts "Please enter one of the following commands:"
     puts "help, play, list, exit"
-  end
-
-  if input == "list"
+  when "list"
     songs_with_index(songs)
-  end
-
-  if input == "play"
+  when "play"
     puts "Would you like to select song by name or index?"
     name_or_index_response = gets.chomp.downcase
-    if name_or_index_response == "index"
-      songs_with_index(songs)
-      puts "Please select the index of the song you want to hear from the list above:"
-      index_choice = gets.chomp.downcase
-      puts "Playing #{songs[index_choice.to_i - 1]}"
-    elsif name_or_index_response == "name"
-      songs_with_index(songs)
-      puts "Please select the name of the song you want to hear from the list above:"
-      name_choice = gets.chomp.downcase
-      puts "Playing #{songs[song_titles.index(name_choice)]}"
+    while name_or_index_response != "index" || name_or_index_response != "name"
+      case name_or_index_response
+      when "index"
+        songs_with_index(songs)
+        puts "Please select the index of the song you want to hear from the list above:"
+        index_choice = gets.chomp.downcase
+        puts "Playing #{songs[index_choice.to_i - 1]}"
+        break
+      when "name"
+        songs_with_index(songs)
+        puts "Please select the name of the song you want to hear from the list above:"
+        name_choice = gets.chomp.downcase
+        puts "Playing #{songs[song_titles.index(name_choice)]}"
+        break
+      else
+        puts "Please select a name or an index number:"
+        name_or_index_response = gets.chomp.downcase
+      end
+
     end
-  end
-
-
-  if input == "exit"
+  when "exit"
     puts "Goodbye!"
     exit = true
+  else
+    puts "Please enter a valid command:"
+    puts "help, play, list, exit"
   end
 end
