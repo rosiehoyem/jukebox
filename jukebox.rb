@@ -49,6 +49,11 @@ songs = [
 song_titles = []
 songs.each { |song| song_titles << song.split(" - ").last.downcase }
 
+def songs_with_index(songs)
+  songs.each_with_index do |song, index|
+    puts "#{index+1}: #{song}"
+  end
+end
 
 exit = false
 puts "♫   Hello, please enter one of the following commands: ♫"
@@ -63,18 +68,22 @@ while exit == false
   end
 
   if input == "list"
-    songs.each_with_index do |song, index|
-      puts "#{index+1}: #{song}"
-    end
+    songs_with_index(songs)
   end
 
   if input == "play"
-    puts "Select song by name or index:"
-    song_selection = gets.chomp.downcase
-    if song_selection.length < 2 && song_selection.match(/[1-9]/)
-      puts "Playing #{songs[song_selection.to_i - 1]}"
-    elsif song_titles.include?(song_selection)
-      puts "Playing #{songs[song_titles.index(song_selection)]}"
+    puts "Would you like to select song by name or index?"
+    name_or_index_response = gets.chomp.downcase
+    if name_or_index_response == "index"
+      songs_with_index(songs)
+      puts "Please select the index of the song you want to hear from the list above:"
+      index_choice = gets.chomp.downcase
+      puts "Playing #{songs[index_choice.to_i - 1]}"
+    elsif name_or_index_response == "name"
+      songs_with_index(songs)
+      puts "Please select the name of the song you want to hear from the list above:"
+      name_choice = gets.chomp.downcase
+      puts "Playing #{songs[song_titles.index(name_choice)]}"
     end
   end
 
