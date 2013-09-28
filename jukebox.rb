@@ -34,8 +34,7 @@ while exit == false
 
   if input == "play"
     possibilities = songs.clone
-    temp_array = []
-    puts "Select song by name or index:"
+    puts "Select a song"
     song_selection = gets.chomp.downcase
     possibilities.map do |song|
       while possibilities.size > 1
@@ -43,6 +42,7 @@ while exit == false
         
         puts "Please be more specific.  Select from the list of matches below, or type 'Cancel'"
         puts possibilities
+        puts "\n"
         song_selection = gets.chomp.downcase
         break if song_selection == "cancel"
       end
