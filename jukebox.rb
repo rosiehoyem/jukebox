@@ -1,4 +1,5 @@
 # encoding: utf-8
+
 songs = [
 "The Phoenix - 1901",
 "Tokyo Police Club - Wait Up",
@@ -38,33 +39,28 @@ while exit == false
 
 
   when "play"
-    puts "Would you like to select song by name or index?"
-    name_or_index_response = gets.chomp.downcase
-    while name_or_index_response != "index" || name_or_index_response != "name"
-      case name_or_index_response
-      when "index"
-        songs_with_index(songs)
-        puts "Please select the index of the song you want to hear from the list above:"
-        index_choice = gets.chomp.downcase
-        puts "Playing #{sprint_to_screen("hello")songs[index_choice.to_i - 1]}"
-        break
-      when "name"
-        songs_with_index(songs)
-        puts "Please select the name of the song you want to hear from the list above:"
-        name_choice = gets.chomp.downcase
-        puts "Playing #{songs[song_titles.index(name_choice)]}"
-        break
-      else
-        puts "Please select a name or an index number:"
-        name_or_index_response = gets.chomp.downcase
+    possibilities = songs.clone
+    puts "Select a song"
+    song_selection = gets.chomp.downcase
+    possibilities.map do |song|
+      while possibilities.size > 1
+        
+        break if song_selection == "cancel"
+        possibilities.delete(song) if !song.downcase.include?(song_selection) 
+        
+        puts "Please be more specific.  Select from the list of matches below, or type 'Cancel'"
+        puts possibilities
+        puts "\n"
+        song_selection = gets.chomp.downcase
+        
       end
-
-
-
     end
+    puts "Playing #{possibilities[0]}"
+
+
   when "exit"
     puts "Goodbye!"
-    exit = true
+    break
   else
     puts "Please enter a valid command:"
     puts "help, play, list, exit"
