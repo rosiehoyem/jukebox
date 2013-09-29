@@ -40,8 +40,8 @@ while exit == false
   case input
 
   when "help"
-    puts "Please enter one of the following commands:"
-    puts "help, play, list, exit"
+    puts "Enter one of the following commands:"
+    puts "help, play, list, exit."
     puts "\n"
   when "list"
     songs_with_index(songs)
@@ -49,11 +49,13 @@ while exit == false
 
 
   when "play"
-
+    puts "\n"
+    puts songs
+    puts "\n"
     # made a new array to contain all the bands and titles, thus allowing the user to search by either
     possibilities_bands_and_titles = []
     possibilities = []
-    puts "Select a song"
+    puts "Select a song from the list"
     puts "\n"
 
     while possibilities.size != 1
@@ -68,14 +70,14 @@ while exit == false
         end
 
       end
-
+      break if song_selection == 'cancel'
 
       case possibilities.size
 
       when 1
         puts "Now playing #{possibilities}"
       when 0
-        puts "That is not a valid option.  Please select from the list or type 'Cancel'"
+        puts "Say what?  Please select from the list or type 'Cancel'"
         puts "\n"
         puts songs
         puts "\n"
@@ -88,7 +90,7 @@ while exit == false
         puts "Select from the list above or type 'Cancel'"
         puts "\n"
       end
-      break if song_selection == 'cancel'
+
     end
 
 
