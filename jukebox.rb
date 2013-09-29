@@ -30,6 +30,7 @@ end
 exit = false
 puts "♫   Hello, please enter one of the following commands: ♫"
 puts "help, play, list, exit".center(50)
+puts "\n"
 
 
 while exit == false
@@ -41,33 +42,53 @@ while exit == false
   when "help"
     puts "Please enter one of the following commands:"
     puts "help, play, list, exit"
+    puts "\n"
   when "list"
     songs_with_index(songs)
 
 
 
   when "play"
+
+    # made a new array to contain all the bands and titles, thus allowing the user to search by either
+    possibilities_bands_and_titles = []
     possibilities = []
     puts "Select a song"
-    song_selection = gets.chomp.downcase
-    songs.each do |song|
-      possibilities << band(songs(song)) if song.downcase.include?(song_selection)
-      possibilities << song_titles(songs(song)) if song.include?(song_selection)
-    end
-    case possibilities
-    when 1
-      puts "Now playing #{possibilities}"
-    when 0
-      puts "That is not a valid option.  Please select from the list."
-      puts songs
-    else
-      puts "\n"
-      puts "Did you mean one of these songs?"
-      puts "\n"
-      puts possibilities
-      puts "\n"
-      puts "Select from the list above or type 'Cancel'"
-      specific_song = gets.chomp.downcase
+    puts "\n"
+
+    while possibilities.size != 1
+      song_selection = gets.chomp.downcase
+      possibilities_bands_and_titles.clear
+      possibilities.clear
+      songs.each do |song|
+        if song.downcase.include?(song_selection)
+          possibilities_bands_and_titles << bands[songs.index(song)] 
+          possibilities_bands_and_titles << song_titles[songs.index(song)]
+        possibilities << song
+        end
+
+      end
+
+
+      case possibilities.size
+
+      when 1
+        puts "Now playing #{possibilities}"
+      when 0
+        puts "That is not a valid option.  Please select from the list or type 'Cancel'"
+        puts "\n"
+        puts songs
+        puts "\n"
+      else
+        puts "\n"
+        puts "Did you mean one of these songs?"
+        puts "\n"
+        puts possibilities
+        puts "\n"
+        puts "Select from the list above or type 'Cancel'"
+        puts "\n"
+      end
+      break if song_selection == 'cancel'
     end
 
 
