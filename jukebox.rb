@@ -10,6 +10,14 @@ songs = [
 "The Phoenix - Consolation Prizes"
 ].sort
 
+bands = []
+song_titles = []
+songs.each do |song|
+  bands << song.split(" - ")[0]
+  song_titles << song.split(" - ")[1]
+end
+
+
 song_titles = []
 songs.each { |song| song_titles << song.split(" - ").last.downcase }
 
@@ -39,23 +47,29 @@ while exit == false
 
 
   when "play"
-    possibilities = songs.clone
+    possibilities = []
     puts "Select a song"
     song_selection = gets.chomp.downcase
-    possibilities.map do |song|
-      while possibilities.size > 1
-        
-        break if song_selection == "cancel"
-        possibilities.delete(song) if !song.downcase.include?(song_selection) 
-        
-        puts "Please be more specific.  Select from the list of matches below, or type 'Cancel'"
-        puts possibilities
-        puts "\n"
-        song_selection = gets.chomp.downcase
-        
-      end
+    songs.each do |song|
+      possibilities << band(songs(song)) if song.downcase.include?(song_selection)
+      possibilities << song_titles(songs(song)) if song.include?(song_selection)
     end
-    puts "Playing #{possibilities[0]}"
+    case possibilities
+    when 1
+      puts "Now playing #{possibilities}"
+    when 0
+      puts "That is not a valid option.  Please select from the list."
+      puts songs
+    else
+      puts "\n"
+      puts "Did you mean one of these songs?"
+      puts "\n"
+      puts possibilities
+      puts "\n"
+      puts "Select from the list above or type 'Cancel'"
+      specific_song = gets.chomp.downcase
+    end
+
 
 
   when "exit"
