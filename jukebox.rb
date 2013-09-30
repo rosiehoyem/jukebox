@@ -52,19 +52,19 @@ while exit == false
 
   when "play"
     puts "\n"
-    puts songs
-    puts "\n"
     # made a new array to contain all the bands and titles, thus allowing the user to search by either
     possibilities_bands_and_titles = []
     possibilities = []
-    puts "Select a song from the list"
-    puts "\n"
+
 
     while possibilities.size != 1
       if play_spec
         song_selection = play_spec
-      else 
+      else
+        puts ["Select a song from the list", songs].join("\n")
+        puts "\n"
         song_selection = gets.chomp.downcase
+        puts "\n"
       end
       possibilities_bands_and_titles.clear
       possibilities.clear
@@ -72,7 +72,7 @@ while exit == false
         if song.downcase.include?(song_selection)
           possibilities_bands_and_titles << bands[songs.index(song)] 
           possibilities_bands_and_titles << song_titles[songs.index(song)]
-        possibilities << song
+          possibilities << song
         end
 
       end
@@ -83,17 +83,10 @@ while exit == false
       when 1
         puts "Now playing #{possibilities}"
       when 0
-        puts "Say what?  Please select from the list or type 'Cancel'"
-        puts "\n"
-        puts songs
+        puts "Say what?  Type 'Cancel' to abort"
         puts "\n"
       else
-        puts "\n"
-        puts "Did you mean one of these songs?"
-        puts "\n"
-        puts possibilities
-        puts "\n"
-        puts "Select from the list above or type 'Cancel'"
+        puts ["Did you mean one of these songs?", possibilities, "Select from the list above or type 'Cancel'"].join("\n")
         puts "\n"
       end
 
