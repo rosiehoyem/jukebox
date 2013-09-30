@@ -23,7 +23,7 @@ songs.each { |song| song_titles << song.split(" - ").last.downcase }
 
 def songs_with_index(songs)
   songs.each_with_index do |song, index|
-    puts "#{index+1}: #{song}"
+    song
   end
 end
 
@@ -46,7 +46,9 @@ while exit == false
     puts "help, play, list, exit."
     puts "\n"
   when "list"
-    songs_with_index(songs)
+    puts "\n"
+    puts songs_with_index(songs)
+    puts "\n"
 
 
 
@@ -61,7 +63,9 @@ while exit == false
       if play_spec
         song_selection = play_spec
       else
-        puts ["Select a song from the list", songs].join("\n")
+        puts "Select a song from the list"
+        puts "\n"
+        puts songs
         puts "\n"
         song_selection = gets.chomp.downcase
         puts "\n"
@@ -85,9 +89,12 @@ while exit == false
       when 0
         puts "Say what?  Type 'Cancel' to abort"
         puts "\n"
-      else
-        puts ["Did you mean one of these songs?", possibilities, "Select from the list above or type 'Cancel'"].join("\n")
+        puts songs
         puts "\n"
+        song_selection = gets.chomp.downcase
+        break if song_selection == 'cancel'
+      else
+        puts ["Did you mean one of these songs?", possibilities, "Select from the list above or type 'Cancel'"].join("\n") + "\n"
       end
 
     end
