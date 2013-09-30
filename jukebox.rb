@@ -35,7 +35,9 @@ puts "\n"
 
 while exit == false
   print "♫  "
-  input = gets.chomp.downcase
+  raw_input = gets.chomp.downcase.split(" ")
+  input = raw_input[0]
+  play_spec = raw_input[1]
 
   case input
 
@@ -59,7 +61,11 @@ while exit == false
     puts "\n"
 
     while possibilities.size != 1
-      song_selection = gets.chomp.downcase
+      if play_spec
+        song_selection = play_spec
+      else 
+        song_selection = gets.chomp.downcase
+      end
       possibilities_bands_and_titles.clear
       possibilities.clear
       songs.each do |song|
