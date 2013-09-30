@@ -28,13 +28,18 @@ def songs_with_index(songs)
 end
 
 exit = false
-puts "♫   Hello, please enter one of the following commands: ♫"
-puts "help, play, list, exit".center(50)
+puts "\n"
+puts "♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫"
+puts "♫                                                       ♫"
+puts "♫   Hello, please enter one of the following commands:  ♫"
+puts "♫                help, play, list, exit                 ♫"
+puts "♫                                                       ♫"
+puts "♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫ ♫"
 puts "\n"
 
 
 while exit == false
-  print "♫  "
+  print "♫  : "
   raw_input = gets.chomp.downcase.split(" ")
   input = raw_input[0]
   play_spec = raw_input[1]
@@ -47,9 +52,9 @@ while exit == false
     puts "\n"
   when "list"
     puts "\n"
-    puts songs_with_index(songs)
-    puts "\n"
-
+    songs.each do |song|
+      puts song
+    end
 
 
   when "play"
@@ -85,7 +90,16 @@ while exit == false
       case possibilities.size
 
       when 1
-        puts "Now playing #{possibilities}"
+        puts "\n"
+        border
+        puts "♫                                                       ♫"
+        print "♫         Now playing #{possibilities}"
+        print "#{pad("Now playing #{possibilities}".size)}"
+        print "♫" + "\n"
+        puts "♫                                                       ♫"
+        border
+        puts "\n"
+
       when 0
         puts "Say what?  Type 'Cancel' to abort"
         puts "\n"
@@ -94,12 +108,11 @@ while exit == false
         song_selection = gets.chomp.downcase
         break if song_selection == 'cancel'
       else
-        puts ["Did you mean one of these songs?", possibilities, "Select from the list above or type 'Cancel'"].join("\n") + "\n"
+        puts ["Did you mean one of these songs?", 
+          possibilities, 
+          "Select from the list above or type 'Cancel'"].join("\n") + "\n"
       end
-
     end
-
-
 
   when "exit"
     puts "Goodbye!"
